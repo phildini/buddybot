@@ -47,6 +47,13 @@ def main():
         username="BuddyBot",
         icon_emoji=":heart:",
     )
+    if user != 'phildini':
+        note_response = slack.chat.post_message(
+            "@phildini",
+            "Message sent to {}.".format(user),
+            username="BuddyBot",
+            icon_emoji=":heart:",
+        )
 
 def get_users_from_slack():
     response = slack.users.list()
