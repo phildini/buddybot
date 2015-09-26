@@ -33,6 +33,10 @@ MESSAGES = [
     "Hey, when's the last time you had water? Maybe you should have some now!",
     "Somebody misses you right now.",
     "Don't forget to breathe.",
+    "Sometimes when things are falling apart, they may be falling into place.",
+    "You are somebody's reason to smile.",
+    "You are amazing!",
+    "Just keep swimming!",
 ]
 
 slack = Slacker(SLACK_API_KEY)
