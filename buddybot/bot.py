@@ -1,7 +1,7 @@
 import os
 import random
 import requests
-from dotenv import load_dotenv
+from dotenv import load_dotenv, set_key
 from slacker import Slacker
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -37,27 +37,44 @@ MESSAGES = [
     "You are somebody's reason to smile.",
     "You are amazing!",
     "Just keep swimming!",
+    "What's going well with your day?",
 ]
 
 slack = Slacker(SLACK_API_KEY)
 
 def main():
-    user = random.choice(OPTED_IN_USERS)
+    user = get_valid_user()
     message = random.choice(MESSAGES)
     print(("{} - {}").format(user, message))
-    message_response = slack.chat.post_message(
-        "@{}".format(user),
-        message,
-        username="BuddyBot",
-        icon_emoji=":heart:",
-    )
+    send_buddybot_message(message=message, user=user)
     if user != 'phildini':
-        note_response = slack.chat.post_message(
-            "@phildini",
-            "Message sent to {}.".format(user),
+        send_buddybot_message(
+            message='Message sent to {}'.format(user),
+            user='phildini',
+        )
+
+def send_buddybot_message(message, user=None, channel=None):
+    if user:
+        message_response = slack.chat.post_message(
+            "@{}".format(user),
+            message,
             username="BuddyBot",
             icon_emoji=":heart:",
         )
+    if channel:
+        message_response = slack.chat.post_message(
+            "#{}".format(channel),
+            message,
+            username="BuddyBot",
+            icon_emoji=":heart:",
+        )
+
+def get_valid_user():
+    user = random.choice(OPTED_IN_USERS)
+    if user == get_env_variable('LAST_USER'):
+        user = get_valid_user()
+    set_key(os.path.join(BASE_DIR, '.env'), 'LAST_USER', user)
+    return user
 
 def get_users_from_slack():
     response = slack.users.list()
