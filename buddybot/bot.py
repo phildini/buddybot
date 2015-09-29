@@ -20,6 +20,7 @@ SLACK_API_KEY = get_env_variable('SLACK_API_KEY')
 OPTED_IN_USERS = [
     'phildini',
     'nicholle',
+    'arctansusan',
     'clach04',
     'erich',
 ]
