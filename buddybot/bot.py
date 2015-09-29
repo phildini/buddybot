@@ -38,6 +38,10 @@ MESSAGES = [
     "You are amazing!",
     "Just keep swimming!",
     "What's going well with your day?",
+    "It's ok to take pleasure in your own solitude.",
+    "Trust yourself.",
+    "You matter and what you have to offer this world also matters.",
+    "It's ok to forgive yourself for mistakes.",
 ]
 
 slack = Slacker(SLACK_API_KEY)
@@ -52,6 +56,7 @@ def main():
             message='Message sent to {}'.format(user),
             user='phildini',
         )
+
 
 def send_buddybot_message(message, user=None, channel=None):
     if user:
@@ -69,6 +74,7 @@ def send_buddybot_message(message, user=None, channel=None):
             icon_emoji=":heart:",
         )
 
+
 def get_valid_user():
     user = random.choice(OPTED_IN_USERS)
     if user == get_env_variable('LAST_USER'):
@@ -85,7 +91,6 @@ def get_users_from_slack():
         )
     ]
     return random.choice(usernames)
-
 
 
 if __name__ == '__main__':
