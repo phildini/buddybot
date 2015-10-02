@@ -75,27 +75,33 @@ def main():
             locale['lng'],
         )
         todays_data = forecast.daily().data[0].d
-        message += '{} {}, {}° - {}°, {}% chance of {}'.format(
+        message += '{} {}, {}° - {}°'.format(
             todays_data['summary'],
             ICONS[todays_data['icon']],
             todays_data['temperatureMin'],
             todays_data['temperatureMax'],
-            todays_data['precipProbability'] * 100.0,
-            todays_data['precipType'],
         )
+        if todays_data.get('precipType'):
+            message += ', {}% chance of {}'.format(
+                todays_data['precipProbability'] * 100.0,
+                todays_data['precipType'],
+            )
         attachments = [
             {
                 'fallback': message,
-                'text': '{} {}, {}° - {}°\n{}% chance of {}'.format(
+                'text': '{} {}, {}° - {}°'.format(
                     todays_data['summary'],
                     ICONS[todays_data['icon']],
                     todays_data['temperatureMin'],
                     todays_data['temperatureMax'],
-                    todays_data['precipProbability'] * 100.0,
-                    todays_data['precipType'],
                 )
             }
         ]
+        if todays_data.get('precipType'):
+            attachments[0]['text'] += '\n{}% chance of {}'.format(
+                todays_data['precipProbability'] * 100.0,
+                todays_data['precipType'],
+            )
         send_buddybot_message(
             'Forecast for {}'.format(locale['name']), 
             attachments=attachments,
