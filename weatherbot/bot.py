@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import forecastio
 import os
 import requests
@@ -31,11 +33,17 @@ LOCALES = [
         'lat': '37.7822891',
         'lng': '-122.463708',
     },
+    # {
+    #     'name': 'Hayward, CA',
+    #     'zip': 94542,
+    #     'lat': '37.6561165',
+    #     'lng': '-122.0326019',
+    # },
     {
-        'name': 'Hayward, CA',
-        'zip': 94542,
-        'lat': '37.6561165',
-        'lng': '-122.0326019',
+        'name': 'Budapest, Hungary',
+        'zip': '',
+        'lat': '47.48561',
+        'lng': '19.06116',
     },
     {
         'name': 'SOMA, SF, CA',
@@ -73,6 +81,7 @@ def main():
             FORECASTIO_KEY,
             locale['lat'],
             locale['lng'],
+            units='us',
         )
         todays_data = forecast.daily().data[0].d
         message += '{} {}, {}° - {}°'.format(

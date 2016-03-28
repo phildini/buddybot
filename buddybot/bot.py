@@ -21,7 +21,6 @@ OPTED_IN_USERS = [
     'phildini',
     'nicholle',
     'arctansusan',
-    'clach04',
     'erich',
 ]
 
@@ -52,11 +51,6 @@ def main():
     message = random.choice(MESSAGES)
     print(("{} - {}").format(user, message))
     send_buddybot_message(message=message, user=user)
-    if user != 'phildini':
-        send_buddybot_message(
-            message='Message sent to {}'.format(user),
-            user='phildini',
-        )
 
 
 def send_buddybot_message(message, user=None, channel=None):
