@@ -33,18 +33,18 @@ LOCALES = [
         'lat': '37.7822891',
         'lng': '-122.463708',
     },
-    # {
-    #     'name': 'Hayward, CA',
-    #     'zip': 94542,
-    #     'lat': '37.6561165',
-    #     'lng': '-122.0326019',
-    # },
     {
-        'name': 'Budapest, Hungary',
-        'zip': '',
-        'lat': '47.48561',
-        'lng': '19.06116',
+        'name': 'Hayward, CA',
+        'zip': 94542,
+        'lat': '37.6561165',
+        'lng': '-122.0326019',
     },
+    # {
+    #     'name': 'Budapest, Hungary',
+    #     'zip': '',
+    #     'lat': '47.48561',
+    #     'lng': '19.06116',
+    # },
     {
         'name': 'SOMA, SF, CA',
         'zip': 94103,
