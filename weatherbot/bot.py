@@ -34,18 +34,6 @@ LOCALES = [
         'lng': '-122.463708',
     },
     {
-        'name': 'Hayward, CA',
-        'zip': 94542,
-        'lat': '37.6561165',
-        'lng': '-122.0326019',
-    },
-    # {
-    #     'name': 'Budapest, Hungary',
-    #     'zip': '',
-    #     'lat': '47.48561',
-    #     'lng': '19.06116',
-    # },
-    {
         'name': 'SOMA, SF, CA',
         'zip': 94103,
         'lat': '37.7726402',
@@ -56,6 +44,11 @@ LOCALES = [
         'zip': 89502,
         'lat': '39.4835647',
         'lng': '-119.7310213',
+    },
+    {
+        'name': 'Sydney, AU',
+        'lat': '-33.865143',
+        'lng': '151.209900',
     },
 ]
 
@@ -83,12 +76,21 @@ def main():
             locale['lng'],
             units='us',
         )
+        forecast_si = forecastio.load_forecast(
+            FORECASTIO_KEY,
+            locale['lat'],
+            locale['lng'],
+            units='si',
+        )
         todays_data = forecast.daily().data[0].d
-        message += '{} {}, {}° - {}°'.format(
+        todays_data_si = forecast_si.daily().data[0].d
+        message += '{} {}, {}° - {}° ({}°C - {}°C)'.format(
             todays_data['summary'],
             ICONS[todays_data['icon']],
             todays_data['temperatureMin'],
             todays_data['temperatureMax'],
+            todays_data_si['temperatureMin'],
+            todays_data_si['temperatureMax'],
         )
         if todays_data.get('precipType'):
             message += ', {}% chance of {}'.format(
@@ -98,11 +100,13 @@ def main():
         attachments = [
             {
                 'fallback': message,
-                'text': '{} {}, {}° - {}°'.format(
+                'text': '{} {}, {}° - {}° ({}°C - {}°C)'.format(
                     todays_data['summary'],
                     ICONS[todays_data['icon']],
                     todays_data['temperatureMin'],
                     todays_data['temperatureMax'],
+                    todays_data_si['temperatureMin'],
+                    todays_data_si['temperatureMax'],
                 )
             }
         ]
